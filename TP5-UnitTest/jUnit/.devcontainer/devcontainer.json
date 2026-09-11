@@ -1,0 +1,14 @@
+{
+  "name": "junit5-practico",
+  "image": "mcr.microsoft.com/devcontainers/java:21",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-java-test",
+        "vscjava.vscode-maven"
+      ]
+    }
+  },
+"postCreateCommand": "bash -c 'source /usr/local/sdkman/bin/sdkman-init.sh && sdk install maven'"
+}
