@@ -3,16 +3,28 @@ public class DiscountCalculator {
     /**
      * InnerDiscountCalculator
      */
-    public enum InnerDiscountCalculator {
+    public enum tipoCliente {
         REGULAR,
         VIP,
         EMPLOYEE
-        
+
     }   
+ 
     public double applyDiscount(double amount, String customerType) {
         if (amount < limit){
             throw new IllegalArgumentException("Monto invalido");
         }
-        return 0;
+
+        if (customerType.equals("REGULAR")){
+            return amount;
+        }else if(customerType.equals("VIP")){
+            return amount * 0.9;
+        }else if (customerType.equals("EMPLOYEE")){
+            return amount * 0.7;
+        }else{
+            throw new IllegalArgumentException("Cliente invalido");
+        }
+        
+        //return 0;
     }
 }

@@ -1,0 +1,29 @@
+{
+  "name": "ejercicio3-integration-testing",
+  // Mismo tag que usás en junit5-practico: si ya la bajaste ahí, Docker
+  // reutiliza esas capas acá y no vuelve a descargar la imagen entera.
+  // El código no usa nada específico de Java 17, así que 21 funciona igual.
+  "image": "mcr.microsoft.com/devcontainers/java:21",
+
+  // Testcontainers necesita hablar con un daemon Docker para levantar el
+  // Postgres real. "docker-outside-of-docker" monta el socket del Docker
+  // del HOST (CachyOS) dentro del devcontainer, así los contenedores que
+  // levanta Testcontainers quedan como "hermanos", no anidados (DinD).
+  // moby:false porque la imagen java:21 corre sobre Debian trixie, donde
+  // todavía no hay paquetes moby-cli — con moby:false instala el Docker
+  // CLI por otra vía (script de get.docker.com) en vez de esos paquetes.
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "moby": false
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": ["vscjava.vscode-java-pack"]
+    }
+  },
+
+  // Precalienta el repo local de Maven al crear el contenedor
+  "postCreateCommand": "mvn -q -DskipTests dependency:go-offline || true"
+}
